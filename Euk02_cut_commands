@@ -1,0 +1,71 @@
+
+
+
+cd /media/sf_Dropbox/eDNA_db/reference_data/silva
+##########   universal euk     #######################################
+# forward - CCAGCASCYGCGGTAATTCC rev - ACTTTCGTTCTTGATYRA 
+# when g then a on f (611600)and r (7000) 
+# when a then g on f (605308) r (67881) !!!!!!!
+cutadapt -a CCAGCASCYGCGGTAATTCC -g ACTTTCGTTCTTGATYRA -n 80 -o silva_eukaV4.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+### sequential cuts  a then g 605,000times then 61000   g then g 610,000 then 806
+#########    use   !!!!!!!!!!!!!!!   a then g of for and rev
+cutadapt -a CCAGCASCYGCGGTAATTCC -n 80 -o silva_eukaV4_forwardcut.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+cutadapt -g ACTTTCGTTCTTGATYRA -n 80 -o silva_eukaV4_for_rev_cut.fasta --discard-untrimmed silva_eukaV4_forwardcut.fasta
+#########################################################################################################
+######   euk03         #################################################
+# forward - CCCTTTGTACACACCGCC rev - CTTCYGCAGGTTCACCTAC 
+####### a then g of for and rev  10283 and 38? a then a and 41  g then a 8178 and 51,  g then g 157
+cutadapt -a CCCTTTGTACACACCGCC -n 80 -o silva_euka03_forwardcut.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+cutadapt -a CTTCYGCAGGTTCACCTAC -n 80 -o silva_euka03_for_rev_cut.fasta --discard-untrimmed silva_euka03_forwardcut.fasta
+##  if reverse is first f g 3500 a-5200
+cutadapt -a CTTCYGCAGGTTCACCTAC -n 80 -o silva_euka03_for_rev_first.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+# for g-52 a-145
+cutadapt -a CCCTTTGTACACACCGCC -n 80 -o silva_euka03_for_rev_first_for_sec.fasta --discard-untrimmed silva_euka03_for_rev_first.fasta
+#######
+#  for then rev 5223 and 8178 no warnings 
+cutadapt -g CCCTTTGTACACACCGCC -a CTTCYGCAGGTTCACCTAC -n 80 -o silva_euka03_FR_combined.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+########
+######   euk2         #################################################
+### cut silva 18s to euka2 before -a  reverse compliment of reverse and -g normal foward
+#  a anchored-seq beginning or end, want g- not anchored    n is number of times primer can be repeated and still cut
+## now  -a is 5' and second is 3'  
+cd /media/sf_Dropbox/eDNA_db/reference_data/silva   #desk PC
+##   forward and rc of reverse
+##  897 of 695171   Dont ever use  ... does not work
+cutadapt -g TTTGTCTGSTTAATTSCG...GCAATAACAGGTCTGTG  -n 80 -o silva_euka02.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+#
+# forward a  71,000 may be incomplete  when g-86000
+cutadapt -g TTTGTCTGSTTAATTSCG  -n 80 -o silva_euka02_forward_cut.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+#after foward was a , g- 0 -a 414; when f was g, g-0  a-447
+cutadapt -a CACAGACCTGTTATTGC -n 80 -o silva_euka02_forward_rev_cut.fasta --discard-untrimmed silva_euka02_forward_cut.fasta
+#
+# forward 86,000
+cutadapt -g TTTGTCTGSTTAATTSCG  -n 80 -o silva_euka02.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+###################################33
+#  11,000 and 88000 no warnings 96508
+cutadapt -g TTTGTCTGSTTAATTSCG -a CACAGACCTGTTATTGC -n 80 -o silva_euka02.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+############################################
+#  reverse nothing
+cutadapt -a TTTGTCTGSTTAATTSCG -g CACAGACCTGTTATTGC -n 80 -o silva_euka02.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+#### run individually use -g with forward (a had warning) and -a with reverse???  
+cutadapt -g TTTGTCTGSTTAATTSCG -n 80 -o silva_euka02_forward_cut.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+cutadapt -a TTTGTCTGSTTAATTSCG -n 80 -o silva_euka02_forward_cut_check_a.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+# reverse first  10,000 when reverse -a 0 when g,  rc of reverse  a- 4286 g-0
+cutadapt -g GCAATAACAGGTCTGTG -n 80 -o silva_euka02_forward_cut.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+# 5-3 prime or revers actually compliment to original #######################################
+#  good revers is GCAATAACAGGTCTGTG   a 4286  g-0
+cutadapt -g GCAATAACAGGTCTGTG -n 80 -o silva_euka02_reverse_cut.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+
+#  good revers rev complimenet CACAGACCTGTTATTGC   a-11000   g-0
+cutadapt -a CACAGACCTGTTATTGC -n 80 -o silva_euka02_reverse_cut.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+
+#  4285 and 88000 no warnings 96508 when g and a 71000 and 0  when rev com of rev-same as origninal
+cutadapt -a TTTGTCTGSTTAATTSCG -g GCAATAACAGGTCTGTG -n 80 -o silva_euka02.fasta --discard-untrimmed SILVA_132_SSURef_Nr99_tax_silva_trunc.fasta
+#################################################################
+###### for download data for bulk sequences from embl for obitools
+cd /home/geraldn/Dropbox/eDNA_db/embl_bulk
+wget -nH --cut-dirs=4 -Arel_std_\*.dat.gz -m ftp://ftp.ebi.ac.uk/pub/databases/embl/release/
+cd ..
+
+
+
