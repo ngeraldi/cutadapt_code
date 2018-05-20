@@ -3,7 +3,7 @@
 ################################################################################
 # Read in primers and create reverse complements.
 ################################################################################
-#  1) Save this script in txt writer (TextEdit on macs) as "cutprim_01.sh"
+#  1) Save this script in txt writer (TextEdit on macs, DO NOT use Windows based software!!!) as "cutprim_01.sh"
 #  2) set primers Lines 20-28
 #  3) Set folders line 13- where folders of miseq run are and line 14 - ouput folder
 #  4) run script in terminal with following (change file.path to specific file path in your computer):
