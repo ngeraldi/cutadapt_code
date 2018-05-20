@@ -58,26 +58,10 @@ do
         CR2="${d_out}"/"${f}"_R2_cut.fastq
 
 cutadapt -g "$PRIMER1" -G "$PRIMER2" -m 20 -o "${CR1}" -p "${CR2}" --discard-untrimmed   "${READ1}" "${READ2}"
-#  a should be used becaseu should be anchored, g is not anchored
-# for euka2 -g and -A reverse primer not right
+#  see cutadapt documents for more details  
+#    https://cutadapt.readthedocs.io/en/stable/
 # example uses a and A    a is 3 prime and g is 5 prime
-#for vert used -g and -G,  -A "$PRIMER2RC"  didn't work
-## -G for primer2 10% worked, -A primer2  0% worked, -G primer2RC 0% worked, -A primer2RC 0.2% worked,  PRIMER2C nothing
-#--pair-filter=both
 
    done
-
-		
-#count_seqs.py -i "$CURRENT_LIB"/"*.fastq">"${d_out}"/raw.summary.txt
-#count_seqs.py -i "${d_out}"/"*cut.fastq">"${d_out}"/cut.summary.txt
-
-dp='/home/geraldn/Dropbox/eDNA_db/Dec10cut'
-
-#cd "${d_out}"
-
-#for f in *.fastq
-#do 
-#   mv  -f "$f" "$dp"
-#done
 
 
